@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Comparte tu testimonio</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container-sm page">
+
+    <div class="page-header">
+        <h1 class="page-title">Comparte tu experiencia</h1>
+        <p class="page-subtitle">Tu correo: <strong th:text="${contactEmail}"></strong></p>
+    </div>
+
+    <form action="#" th:action="@{/public/testimony}" th:object="${testimonyRequest}" method="post" class="form-card">
+
+        <div class="form-group">
+            <label>Nombre para mostrar *</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <label>URL de tu foto *</label>
+            <input type="url" th:field="*{photoURL}" required placeholder="https://ejemplo.com/foto.jpg">
+        </div>
+
+        <div class="form-group">
+            <label>Instagram URL</label>
+            <input type="url" th:field="*{instagramURL}" placeholder="https://instagram.com/usuario">
+        </div>
+
+        <div class="form-group">
+            <label>Facebook URL</label>
+            <input type="url" th:field="*{facebookURL}" placeholder="https://facebook.com/usuario">
+        </div>
+
+        <input type="hidden" th:field="*{contactEmail}">
+        <button type="submit" class="btn-primary btn-full">Enviar testimonio</button>
+
+    </form>
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

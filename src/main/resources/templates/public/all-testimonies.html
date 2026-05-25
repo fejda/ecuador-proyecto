@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Todos los Testimonios</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page">
+
+  <div class="page-header">
+    <h1 class="page-title">Testimonios de éxito</h1>
+    <p class="page-subtitle">Personas que han confiado en nosotros</p>
+  </div>
+
+  <div th:if="${testimonies.isEmpty()}" class="empty-state">
+    <p>No hay testimonios publicados aún. ¡Sé el primero!</p>
+    <a href="/public/contact" class="btn-primary">Compartir mi experiencia</a>
+  </div>
+
+  <div th:unless="${testimonies.isEmpty()}" class="grid-testimonials">
+    <div th:each="t : ${testimonies}" class="card card-centered">
+      <img th:src="${t.photoURL}" class="testimony-avatar-sm" onerror="this.src='https://via.placeholder.com/80'">
+      <h3 class="testimony-name" th:text="${t.name}"></h3>
+      <p class="testimony-quote">"Comparto mi experiencia con Ecuador Comparte."</p>
+      <div class="testimony-links">
+        <a th:if="${t.instagramURL}" th:href="${t.instagramURL}">Instagram</a>
+        <a th:if="${t.facebookURL}" th:href="${t.facebookURL}">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn-back">← Volver al inicio</a>
+  </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

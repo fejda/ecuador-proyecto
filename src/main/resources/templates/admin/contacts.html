@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Contactos</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page-admin">
+
+  <div class="action-bar">
+    <a href="javascript:history.back()" class="btn-back">Volver</a>
+    <a href="/admin/dashboard" class="btn-primary">Dashboard</a>
+  </div>
+
+  <div th:if="${success}" class="alert alert-success">
+    ✓ <span th:text="${success}"></span>
+  </div>
+
+  <div class="page-admin-header">
+    <h1 class="page-admin-title">Solicitudes de Contacto</h1>
+  </div>
+
+  <div class="filter-bar">
+    <label>Filtrar por Finalidad:</label>
+    <select id="filter" onchange="filterTable()" class="filter-select">
+      <option value="">Todos</option>
+      <option th:each="p : ${purposes}" th:value="${p.name()}" th:text="${p.visualName}"></option>
+    </select>
+    <button onclick="resetFilter()" class="btn-back" style="border:none; cursor:pointer;">Limpiar</button>
+  </div>
+
+  <div class="table-container">
+    <table class="admin-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Finalidad</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="c : ${contacts}">
+        <td th:text="${c.contactID}"></td>
+        <td th:text="${c.name}"></td>
+        <td><a th:href="'mailto:' + ${c.email}" th:text="${c.email}" class="card-link"></a></td>
+        <td><span class="phone-badge">+593 <span th:text="${c.telephone}"></span></span></td>
+        <td class="purpose" th:text="${c.purpose.getVisualName()}"></td>
+        <td th:text="${#dates.format(c.creationDate, 'dd/MM/yyyy')}"></td>
+        <td>
+          <a th:href="@{'/admin/contacts/' + ${c.contactID} + '/delete'}"
+             class="btn-delete"
+             onclick="return confirm('¿Eliminar este contacto?')">Eliminar</a>
+        </td>
+      </tr>
+      <tr th:if="${contacts.isEmpty()}">
+        <td colspan="7" class="table-empty">No hay solicitudes de contacto registradas</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  function filterTable() {
+    const f = document.getElementById('filter').value;
+    document.querySelectorAll('tbody tr').forEach(r => {
+      const p = r.querySelector('.purpose');
+      if (p) r.style.display = (f === '' || p.innerText === f) ? '' : 'none';
+    });
+  }
+  function resetFilter() {
+    document.getElementById('filter').value = '';
+    filterTable();
+  }
+</script>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

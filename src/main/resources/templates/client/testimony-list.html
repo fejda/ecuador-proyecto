@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Testimonios de Éxito</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page">
+
+    <div class="page-header">
+        <h1 class="page-title">Testimonios de Éxito</h1>
+        <p class="page-subtitle">Lo que nuestros clientes dicen sobre nosotros</p>
+    </div>
+
+    <div th:unless="${testimonies.isEmpty()}" class="grid-testimonials">
+        <div th:each="testimonyItem : ${testimonies}" class="testimony-card">
+
+            <img th:src="${testimonyItem.photoURL}"
+                 th:alt="'Foto de ' + ${testimonyItem.name}"
+                 class="testimony-avatar"
+                 onclick="window.open(this.src, '_blank')"
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Sin+Foto';">
+
+            <h3 class="testimony-name" th:text="${testimonyItem.name}"></h3>
+
+            <div class="testimony-links">
+                <a th:if="${testimonyItem.instagramURL != null}" th:href="${testimonyItem.instagramURL}" target="_blank">📷 Instagram</a>
+                <a th:if="${testimonyItem.facebookURL != null}" th:href="${testimonyItem.facebookURL}" target="_blank">📘 Facebook</a>
+                <span th:unless="${testimonyItem.instagramURL != null or testimonyItem.facebookURL != null}" class="text-muted">Sin redes sociales</span>
+            </div>
+
+            <small class="text-muted">
+                Cliente desde <span th:text="${#dates.format(testimonyItem.creationDate, 'dd/MM/yyyy')}"></span>
+            </small>
+
+        </div>
+    </div>
+
+    <div th:if="${testimonies.isEmpty()}" class="empty-state">
+        <p>No hay testimonios disponibles por el momento.</p>
+    </div>
+
+    <div class="alert alert-warning mt-4">
+        ¿Tienes una experiencia para compartir? <a href="/public/contact" class="card-link">Contáctanos</a>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn-back">← Volver al inicio</a>
+    </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

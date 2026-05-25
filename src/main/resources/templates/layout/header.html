@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <link rel="stylesheet" th:href="@{/css/responsive.css}">
+  <title th:text="${title} ?: 'Ecuador Comparte'">Ecuador Comparte</title>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img th:src="@{/imagenes/logo.png}" alt="Logo">
+      <span class="logo-text">Ecuador Comparte</span>
+    </a>
+    <nav class="nav">
+      <a href="/">Inicio</a>
+      <a href="/public/contact">Contacto</a>
+      <a href="/public/testimonies">Testimonios</a>
+      <a href="/public/news">Noticias</a>
+      <div th:if="${isAuthenticated}" class="dropdown">
+        <a href="#">Admin ▼</a>
+        <div class="dropdown-content">
+          <a href="/admin/dashboard">Dashboard</a>
+          <a href="/admin/contacts">Contactos</a>
+          <a href="/admin/testimonies/pending">Pendientes</a>
+          <a href="/admin/testimonies/approved">Aprobados</a>
+          <a href="/admin/news">Noticias</a>
+        </div>
+      </div>
+    </nav>
+    <div class="user-info">
+      <span th:if="${isAuthenticated}" class="user-email">📌 <span th:text="${userEmail}"></span></span>
+      <a th:if="${isAuthenticated}" href="/auth/logout" class="btn-logout">Cerrar Sesión</a>
+      <a th:unless="${isAuthenticated}" href="/auth/login-page" class="btn-login">Acceder</a>
+    </div>
+  </div>
+</header>
+<div style="padding-top: 70px;">
+  <main>
+</body>
+</html>

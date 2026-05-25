@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title th:text="${news.title}">Noticia</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container-md page">
+
+    <div class="card" style="overflow:hidden;">
+        <img th:src="${news.mainImageUrl}" class="card-img-full"
+             onerror="this.src='https://via.placeholder.com/800x400'">
+        <div class="card-body">
+            <h1 class="card-title" style="font-size:2rem; margin-bottom:1rem;" th:text="${news.title}"></h1>
+            <p class="card-meta">
+                <span th:text="${#dates.format(news.publicationDate, 'dd/MM/yyyy HH:mm')}"></span>
+                | <span th:text="${news.author}"></span>
+            </p>
+            <div class="news-content" th:utext="${news.content.replace('\n', '<br>')}"></div>
+            <div class="mt-4">
+                <a href="/public/news" class="btn-back">← Volver a noticias</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

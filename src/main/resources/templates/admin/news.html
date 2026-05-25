@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Gestionar Noticias</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page-admin">
+
+    <div class="action-bar">
+        <a href="javascript:history.back()" class="btn-back">Volver</a>
+        <a href="/admin/news/create" class="btn-primary">Crear nueva noticia</a>
+    </div>
+
+    <div class="page-admin-header">
+        <h1 class="page-admin-title">Gestión de Noticias</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="n : ${news}">
+                <td th:text="${n.id}"></td>
+                <td th:text="${n.title}"></td>
+                <td th:text="${n.author}"></td>
+                <td>
+                    <span th:if="${n.status == 'DRAFT'}" class="status-badge status-draft">Borrador</span>
+                    <span th:if="${n.status == 'PUBLISHED'}" class="status-badge status-published">Publicado</span>
+                </td>
+                <td th:text="${#dates.format(n.publicationDate, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <div class="cell-actions">
+                        <a th:href="@{'/admin/news/' + ${n.id} + '/edit'}" class="btn-edit">Editar</a>
+                        <form th:if="${n.status == 'DRAFT'}" th:action="@{'/admin/news/' + ${n.id} + '/publish'}" method="post" class="form-inline">
+                            <button type="submit" class="btn-publish">Publicar</button>
+                        </form>
+                        <form th:action="@{'/admin/news/' + ${n.id} + '/delete'}" method="post" class="form-inline">
+                            <button type="submit" class="btn-delete" onclick="return confirm('¿Eliminar esta noticia?')">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Ecuador Comparte</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>La cultura que <span>nos une</span></h1>
+            <p>Conectamos las manos que crean con los corazones que valoran. Ecuador Comparte es el puente digital hacia nuestra herencia viva y futuro colectivo.</p>
+            <div class="hero-actions">
+                <a href="/public/contact" class="btn-primary">Unirse a la Comunidad</a>
+                <a th:unless="${isAuthenticated}" href="/auth/login-page" class="btn-ghost">Acceso Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servicios -->
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <p class="section-subtitle">Ofrecemos programas diseñados para fortalecer el tejido social y cultural del Ecuador.</p>
+    <div class="grid-3">
+        <div class="card card-centered">
+            <div class="service-icon">🤝</div>
+            <h3 class="service-title">Servicio Comunitario</h3>
+            <p class="service-text">Apoyamos a comunidades necesitadas con programas de ayuda social y desarrollo sostenible.</p>
+        </div>
+        <div class="card card-centered">
+            <div class="service-icon">🎓</div>
+            <h3 class="service-title">Programa EDIFICA</h3>
+            <p class="service-text">Educación y desarrollo integral para jóvenes latinoamericanos, construyendo el futuro.</p>
+        </div>
+        <div class="card card-centered">
+            <div class="service-icon">🎤</div>
+            <h3 class="service-title">Shows y Conferencias</h3>
+            <p class="service-text">Eventos inspiradores para motivar el cambio social y celebrar nuestra identidad.</p>
+        </div>
+    </div>
+
+    <!-- Noticias Recientes -->
+    <div class="section-header">
+        <div>
+            <h2>Crónicas del Territorio</h2>
+            <p>Explora las historias, eventos y paisajes que definen nuestra identidad.</p>
+        </div>
+        <a href="/public/all-news">Ver todas las noticias →</a>
+    </div>
+
+    <div th:if="${news.isEmpty()}" class="card">
+        <p class="text-muted">No hay noticias publicadas aún.</p>
+    </div>
+    <div th:unless="${news.isEmpty()}" class="grid-news">
+        <div th:each="n : ${news}" class="card" style="overflow:hidden;">
+            <img th:src="${n.mainImageUrl}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200'">
+            <h3 class="card-title" th:text="${n.title}"></h3>
+            <p class="card-meta">
+                <span th:text="${#dates.format(n.publicationDate, 'dd/MM/yyyy')}"></span> | <span th:text="${n.author}"></span>
+            </p>
+            <p class="card-text-clamp" th:text="${n.summary}"></p>
+            <a th:href="@{'/public/news/' + ${n.id}}" class="card-link">Leer más →</a>
+        </div>
+    </div>
+
+    <!-- Testimonios -->
+    <div class="section-header">
+        <div>
+            <h2>Nuestra Comunidad Opina</h2>
+            <p>Personas reales construyendo una red de confianza y colaboración.</p>
+        </div>
+        <a href="/public/all-testimonies">Ver todos los testimonios →</a>
+    </div>
+
+    <div th:if="${testimonies.isEmpty()}" class="card">
+        <p class="text-muted">No hay testimonios publicados aún. ¡Sé el primero!</p>
+        <a href="/public/contact" class="btn-primary mt-2">Compartir mi experiencia</a>
+    </div>
+    <div th:unless="${testimonies.isEmpty()}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+        <div th:each="t : ${testimonies}" class="card card-centered">
+            <img th:src="${t.photoURL}" class="testimony-avatar-sm" onerror="this.src='https://via.placeholder.com/80'">
+            <h3 class="testimony-name" th:text="${t.name}"></h3>
+            <p class="testimony-quote">"Gracias a Ecuador Comparte, mi experiencia ha sido transformadora."</p>
+            <div class="testimony-links">
+                <a th:if="${t.instagramURL}" th:href="${t.instagramURL}">Instagram</a>
+                <a th:if="${t.facebookURL}" th:href="${t.facebookURL}">Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <h2>¿Listo para ser parte de la red más grande de Ecuador?</h2>
+        <p>Únete hoy y empieza a compartir recursos, conocimientos y apoyo con miles de compatriotas.</p>
+        <a href="/public/contact" class="btn-gold">Crear mi cuenta gratuita →</a>
+    </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

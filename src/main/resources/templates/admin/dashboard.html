@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Dashboard</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page-admin">
+
+  <div class="page-admin-header">
+    <h1 class="page-admin-title">Panel Administrativo</h1>
+    <p class="page-admin-subtitle">Gestión Cultural</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📧</div>
+      <p class="stat-label">Pendientes</p>
+      <h2 class="stat-value">24</h2>
+      <p class="stat-trend">+12% vs ayer</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Total Mes</p>
+      <h2 class="stat-value">142</h2>
+      <p class="stat-note">Actualizado hace 5m</p>
+    </div>
+    <div class="stat-card stat-card-dark">
+      <p class="stat-label stat-label-gold">Eficiencia de Respuesta</p>
+      <h2 class="stat-value stat-value-white">94%</h2>
+      <button class="stat-action">Ver reporte completo →</button>
+    </div>
+  </div>
+
+  <!-- Módulos -->
+  <div class="admin-modules">
+    <a href="/admin/contacts" class="admin-module-card">
+      <div class="admin-module-icon">📋</div>
+      <h3 class="admin-module-title">Solicitudes de Contacto</h3>
+      <p class="admin-module-desc">Gestionar inscripciones</p>
+    </a>
+    <a href="/admin/testimonies/pending" class="admin-module-card">
+      <div class="admin-module-icon">⏳</div>
+      <h3 class="admin-module-title">Testimonios Pendientes</h3>
+      <p class="admin-module-desc">Aprobar o rechazar</p>
+    </a>
+    <a href="/admin/testimonies/approved" class="admin-module-card">
+      <div class="admin-module-icon">✅</div>
+      <h3 class="admin-module-title">Testimonios Aprobados</h3>
+      <p class="admin-module-desc">Gestionar publicados</p>
+    </a>
+    <a href="/admin/news" class="admin-module-card">
+      <div class="admin-module-icon">📰</div>
+      <h3 class="admin-module-title">Noticias</h3>
+      <p class="admin-module-desc">Crear y gestionar</p>
+    </a>
+    <a href="/admin/testimonies/create" class="admin-module-card">
+      <div class="admin-module-icon">✏️</div>
+      <h3 class="admin-module-title">Crear Testimonio</h3>
+      <p class="admin-module-desc">Agregar nuevo</p>
+    </a>
+    <a href="/admin/news/create" class="admin-module-card">
+      <div class="admin-module-icon">📝</div>
+      <h3 class="admin-module-title">Crear Noticia</h3>
+      <p class="admin-module-desc">Publicar nueva</p>
+    </a>
+  </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

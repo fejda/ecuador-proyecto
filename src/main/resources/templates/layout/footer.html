@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="footer">
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Ecuador Comparte</div>
+      <div class="footer-copy">© 2025 Tejiendo comunidad</div>
+    </div>
+    <div class="footer-links">
+      <a href="/public/contact">Contacto</a>
+      <a href="/public/testimonies">Testimonios</a>
+      <a href="/public/news">Noticias</a>
+      <a th:unless="${isAuthenticated}" href="/auth/login-page">Admin</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

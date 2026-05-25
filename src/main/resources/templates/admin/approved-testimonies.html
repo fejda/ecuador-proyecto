@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Testimonios Aprobados</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page-admin">
+
+  <div class="action-bar">
+    <a href="javascript:history.back()" class="btn-back">Volver</a>
+    <a href="/admin/testimonies/create" class="btn-primary">Crear nuevo testimonio</a>
+  </div>
+
+  <div class="page-admin-header">
+    <h1 class="page-admin-title">Testimonios Aprobados</h1>
+  </div>
+
+  <div class="table-container">
+    <table class="admin-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Foto</th>
+        <th>Nombre</th>
+        <th>Instagram</th>
+        <th>Facebook</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="t : ${testimonies}">
+        <td th:text="${t.id}"></td>
+        <td>
+          <img th:src="${t.photoURL}" class="table-avatar"
+               onerror="this.src='https://via.placeholder.com/40'">
+        </td>
+        <td th:text="${t.name}"></td>
+        <td>
+          <a th:if="${t.instagramURL}" th:href="${t.instagramURL}" class="card-link">Ver</a>
+          <span th:unless="${t.instagramURL}">-</span>
+        </td>
+        <td>
+          <a th:if="${t.facebookURL}" th:href="${t.facebookURL}" class="card-link">Ver</a>
+          <span th:unless="${t.facebookURL}">-</span>
+        </td>
+        <td>
+          <div class="cell-actions">
+            <a th:href="@{'/admin/testimonies/' + ${t.id} + '/edit'}" class="btn-edit">Editar</a>
+            <form th:action="@{'/admin/testimonies/' + ${t.id} + '/delete'}" method="post" class="form-inline">
+              <button type="submit" class="btn-delete" onclick="return confirm('¿Eliminar?')">Eliminar</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

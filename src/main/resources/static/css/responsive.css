@@ -1,0 +1,171 @@
+/* ============================================
+   ECUADOR COMPARTE - ESTILOS RESPONSIVE
+   ============================================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .grid-3,
+    .grid-news,
+    .grid-testimonials {
+        gap: 1.5rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+    .header-inner {
+        padding: 0 1rem;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    .logo-img {
+        height: 30px;
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .hero-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 1.5rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .pending-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pending-actions {
+        justify-content: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo-container {
+        justify-content: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-content {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .admin-table {
+        font-size: 0.75rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Desktop grandes */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .header-inner {
+        max-width: 1400px;
+    }
+
+    .footer-inner {
+        max-width: 1400px;
+    }
+}
+
+/* Impresión */
+@media print {
+    .header,
+    .footer,
+    .btn-primary,
+    .btn-secondary,
+    .nav {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .container {
+        padding: 0;
+        margin: 0;
+    }
+}

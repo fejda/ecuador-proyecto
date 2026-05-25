@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Contacto</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container-sm page">
+
+    <div class="page-header">
+        <h1 class="page-title">Únete a la Red Cultural</h1>
+        <p class="page-subtitle">Tu participación fortalece el tejido social del país.</p>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success">
+        ✓ <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-error">
+        ⚠️ <span th:text="${error}"></span>
+    </div>
+
+    <form action="#" th:action="@{/public/contact}"
+          th:object="${contactRequest}" method="post" class="form-card">
+
+        <!-- Error general DENTRO del form -->
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+            ⚠️ Por favor corrige los errores antes de continuar.
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nombre Completo *</label>
+                <input type="text" th:field="*{name}" required
+                       th:classappend="${#fields.hasErrors('name')} ? 'input-error'">
+                <span th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}" class="form-error"></span>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" th:field="*{email}" required
+                       th:classappend="${#fields.hasErrors('email')} ? 'input-error'">
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}" class="form-error"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" th:field="*{telephone}" placeholder="99 999 9999"
+                       th:classappend="${#fields.hasErrors('telephone')} ? 'input-error'">
+                <span th:if="${#fields.hasErrors('telephone')}"
+                      th:errors="*{telephone}" class="form-error"></span>
+                <span class="form-hint">9 o 10 dígitos</span>
+            </div>
+            <div class="form-group">
+                <label>Finalidad *</label>
+                <select th:field="*{purpose}">
+                    <option th:each="p : ${contactpurpose}"
+                            th:value="${p}" th:text="${p.visualName}"></option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary btn-full">Enviar Registro →</button>
+        <p class="form-note">Al enviar, aceptas nuestra política de tratamiento de datos personales.</p>
+
+    </form>
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

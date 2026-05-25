@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Testimonios Pendientes</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page-admin">
+
+  <div class="action-bar">
+    <a href="javascript:history.back()" class="btn-back">Volver</a>
+  </div>
+
+  <div class="page-admin-header">
+    <h1 class="page-admin-title">Testimonios Pendientes</h1>
+  </div>
+
+  <div th:if="${testimonies.empty}" class="card">
+    <p class="text-muted">No hay testimonios pendientes.</p>
+  </div>
+
+  <div th:each="t : ${testimonies}" class="pending-card">
+    <img th:src="${t.photoURL}" class="pending-img"
+         onerror="this.src='https://via.placeholder.com/80'">
+    <div class="pending-info">
+      <h3 class="pending-name" th:text="${t.name}"></h3>
+      <p class="pending-detail">Email: <span th:text="${t.contactEmail}"></span></p>
+      <p th:if="${t.instagramURL}" class="pending-detail">
+        Instagram: <a th:href="${t.instagramURL}" target="_blank" th:text="${t.instagramURL}"></a>
+      </p>
+      <p th:if="${t.facebookURL}" class="pending-detail">
+        Facebook: <a th:href="${t.facebookURL}" target="_blank" th:text="${t.facebookURL}"></a>
+      </p>
+    </div>
+    <div class="pending-actions">
+      <form th:action="@{'/admin/testimonies/' + ${t.id} + '/approve'}" method="post">
+        <button type="submit" class="btn-approve">Aprobar</button>
+      </form>
+      <form th:action="@{'/admin/testimonies/' + ${t.id} + '/reject'}" method="post" style="display:flex; gap:0.5rem;">
+        <input type="text" name="reason" placeholder="Motivo" class="pending-reject-input">
+        <button type="submit" class="btn-reject">Rechazar</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header}"><title>Página no encontrada</title></head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="container page flex-center" style="min-height: 60vh;">
+
+    <div class="card success-box">
+        <div class="success-icon">😕</div>
+        <h1 class="warning-title">404 - Página no encontrada</h1>
+        <p class="success-text">Lo sentimos, la página que buscas no existe.</p>
+        <div class="success-actions">
+            <a href="/" class="btn-primary">Volver al inicio</a>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>
