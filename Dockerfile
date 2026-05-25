@@ -32,5 +32,5 @@ COPY --from=builder /app/build/libs/*.jar app.jar
 # Expone el puerto
 EXPOSE 8080
 
-# Comando para ejecutar la app
+# Comando para ejecutar la appa
 CMD ["java", "-jar", "app.jar"]
