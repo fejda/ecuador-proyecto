@@ -1,0 +1,7 @@
+build 
+.gradle 
+bin 
+*.log 
+.git 
+.gitignore 
+README.md 
