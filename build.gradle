@@ -42,11 +42,12 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
     // ============================================
-    // BASE DE DATOS
+    // BASE DE DATOS - POSTGRESQL
     // ============================================
 
-    // PostgreSQL (PRODUCCIÓN)
+    // PostgreSQL driver (tanto implementation como runtimeOnly)
     implementation 'org.postgresql:postgresql:42.7.3'
+    runtimeOnly 'org.postgresql:postgresql:42.7.3'
 
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
