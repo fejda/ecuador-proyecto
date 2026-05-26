@@ -1,5 +1,5 @@
-# Dockerfile para proyecto Java generico sin Spring Boot 
-FROM gradle:7.6-jdk17 AS builder 
+# Dockerfile para Spring Boot con Java 21 
+FROM gradle:8.5-jdk21 AS builder 
  
 WORKDIR /app 
  
@@ -7,12 +7,12 @@ COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle 
  
 RUN chmod +x gradlew 
-RUN ./gradlew build -x test --no-daemon 
+RUN ./gradlew dependencies --no-daemon 
  
 COPY src ./src 
-RUN ./gradlew jar --no-daemon 
+RUN ./gradlew bootJar -x test --no-daemon 
  
-FROM eclipse-temurin:17-jre-alpine 
+FROM eclipse-temurin:21-jre-alpine 
  
 WORKDIR /app 
  
