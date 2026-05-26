@@ -1,4 +1,4 @@
-# Usa una imagen base con JDK 17 y Gradle preinstalado 
+# Dockerfile para proyecto Java generico sin Spring Boot 
 FROM gradle:7.6-jdk17 AS builder 
  
 WORKDIR /app 
@@ -7,10 +7,10 @@ COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle 
  
 RUN chmod +x gradlew 
-RUN ./gradlew build -x test --no-daemon --stacktrace 
+RUN ./gradlew build -x test --no-daemon 
  
 COPY src ./src 
-RUN ./gradlew bootJar -x test --no-daemon --stacktrace 
+RUN ./gradlew jar --no-daemon 
  
 FROM eclipse-temurin:17-jre-alpine 
  
