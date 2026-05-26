@@ -1,39 +1,40 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
-  # ========== POSTGRESQL ==========
+
   postgres:
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: ecuador-postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=frank
-      - POSTGRES_PASSWORD=290307
-      - POSTGRES_DB=ecuador_db
+      POSTGRES_USER: ${DB_USERNAME:-frank}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-290307}
+      POSTGRES_DB: ${POSTGRES_DB:-ecuador_db}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - ecuador-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U frank -d ecuador_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-frank} -d ${POSTGRES_DB:-ecuador_db}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # ========== APLICACIÓN SPRING BOOT ==========
   app:
     build: .
     container_name: ecuador-app
     ports:
       - "8080:8080"
     environment:
-      - PORT=8080
-      - JWT_SECRET=clave-super-secreta-para-produccion-2025
-      - DB_URL=jdbc:postgresql://postgres:5432/ecuador_db
-      - DB_USER=frank
-      - DB_PASSWORD=290307
+      PORT: 8080
+      DATABASE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-ecuador_db}
+      DB_USERNAME: ${DB_USERNAME:-frank}
+      DB_PASSWORD: ${DB_PASSWORD:-290307}
+      JWT_SECRET: ${JWT_SECRET:-clave-super-secreta-local-dev}
+      JWT_EXPIRATION: 86400000
+      SSLMODE: disable
     depends_on:
       postgres:
         condition: service_healthy
