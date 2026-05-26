@@ -1,39 +1,38 @@
 # Usa una imagen base con JDK 21 y Gradle preinstalado
 FROM gradle:8.5-jdk21 AS builder
 
-# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia los archivos de configuración de Gradle primero (para cachear dependencias)
+# Copiar archivos de configuración
 COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle
 
-# Da permisos de ejecución al wrapper de Gradle
 RUN chmod +x gradlew
 
-# Descarga dependencias (esto se cachea si no cambia build.gradle)
-RUN ./gradlew dependencies --no-daemon
+# 🆕 FORZAR DESCARGA DEL DRIVER POSTGRESQL
+RUN ./gradlew dependencies --no-daemon || true
+RUN ./gradlew build -x test --no-daemon || true
 
-# Copia el código fuente
+# Copiar código fuente
 COPY src ./src
 
-# Construye el archivo JAR (omite los tests para que sea más rápido)
+# 🆕 FORZAR INCLUSIÓN DEL DRIVER EN EL BOOTJAR
 RUN ./gradlew bootJar -x test --no-daemon
 
-# ---- Etapa 2: Imagen final más pequeña ----
+# Verificar que el driver está en el JAR
+RUN jar tf build/libs/*.jar | grep -i postgresql
+
+# Etapa final
 FROM eclipse-temurin:21-jre-alpine
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copia el JAR construido desde la etapa anterior
-COPY --from=builder /app/build/libs/*.jar app.jar
-
-# Crea el directorio para la base de datos H2 (persistente)
+# Crear directorio para datos
 RUN mkdir -p /app/data
 
-# Expone el puerto que usa tu app
+# Copiar el JAR
+COPY --from=builder /app/build/libs/*.jar app.jar
+
 EXPOSE 8080
 
-# Comando para ejecutar la app
 CMD ["java", "-jar", "app.jar"]
