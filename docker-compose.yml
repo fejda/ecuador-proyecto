@@ -1,4 +1,28 @@
+version: '3.8'
+
 services:
+  # ========== POSTGRESQL ==========
+  postgres:
+    image: postgres:15
+    container_name: ecuador-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=frank
+      - POSTGRES_PASSWORD=290307
+      - POSTGRES_DB=ecuador_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ecuador-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frank -d ecuador_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ========== APLICACIÓN SPRING BOOT ==========
   app:
     build: .
     container_name: ecuador-app
@@ -7,9 +31,19 @@ services:
     environment:
       - PORT=8080
       - JWT_SECRET=clave-super-secreta-para-produccion-2025
-    volumes:
-      - h2-data:/app/data
+      - DB_URL=jdbc:postgresql://postgres:5432/ecuador_db
+      - DB_USER=frank
+      - DB_PASSWORD=290307
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ecuador-net
     restart: unless-stopped
 
 volumes:
-  h2-data:
+  postgres-data:
+
+networks:
+  ecuador-net:
+    driver: bridge
