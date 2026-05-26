@@ -1,29 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'dev.fejda'
+version = '0.0.1-SNAPSHOT'
+description = 'Latinoamerica-Comparte'
+
+java {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    // Mail
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
-
-    // Validación
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-    // Seguridad
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-
-    // Web y Thymeleaf
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-    // 🆕 MONGODB (en lugar de PostgreSQL)
+    // MongoDB
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
-    // Devtools
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // JWT
+    // Seguridad y JWT
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
+    // Mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // Devtools (solo desarrollo)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
