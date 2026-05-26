@@ -48,13 +48,7 @@ dependencies {
     // PostgreSQL (PRODUCCIÓN)
     implementation 'org.postgresql:postgresql:42.7.3'
 
-    // H2 (DESARROLLO LOCAL - opcional, puedes comentarlo)
-    // implementation 'com.h2database:h2'
-    // runtimeOnly 'com.h2database:h2'
-
-    // ============================================
-    // TESTS
-    // ============================================
+    // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
