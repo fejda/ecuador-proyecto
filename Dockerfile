@@ -7,10 +7,10 @@ COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle 
  
 RUN chmod +x gradlew 
-RUN ./gradlew dependencies --no-daemon 
+RUN ./gradlew build -x test --no-daemon --stacktrace 
  
 COPY src ./src 
-RUN ./gradlew bootJar --no-daemon -x test 
+RUN ./gradlew bootJar -x test --no-daemon --stacktrace 
  
 FROM eclipse-temurin:17-jre-alpine 
  
