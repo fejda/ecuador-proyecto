@@ -20,6 +20,9 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle (verify it compiles)
         run: ./gradlew bootJar -x test --no-daemon
 
