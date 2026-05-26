@@ -1,14 +1,17 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.springframework.boot' version '4.0.6'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'dev.fejda'
 version = '0.0.1-SNAPSHOT'
+description = 'Latinoamerica-Comparte'
 
 java {
-    sourceCompatibility = '17'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 repositories {
@@ -16,17 +19,34 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // Validación
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Seguridad
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JPA y Web
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // ✅ H2 DATABASE (base de datos en memoria)
+    runtimeOnly 'com.h2database:h2'
+
+    // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
