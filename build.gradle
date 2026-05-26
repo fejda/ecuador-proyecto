@@ -21,13 +21,19 @@ repositories {
 dependencies {
     // Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
     // Validación
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     // Seguridad
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JPA y Web
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Devtools (solo desarrollo)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // JWT
@@ -35,11 +41,20 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
-    // ⚠️ H2 DATABASE - FORZAR INCLUSIÓN EN EL JAR ⚠️
-    implementation 'com.h2database:h2'
-    runtimeOnly 'com.h2database:h2'
+    // ============================================
+    // BASE DE DATOS
+    // ============================================
 
-    // Test
+    // PostgreSQL (PRODUCCIÓN)
+    implementation 'org.postgresql:postgresql:42.7.3'
+
+    // H2 (DESARROLLO LOCAL - opcional, puedes comentarlo)
+    // implementation 'com.h2database:h2'
+    // runtimeOnly 'com.h2database:h2'
+
+    // ============================================
+    // TESTS
+    // ============================================
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
